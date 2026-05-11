@@ -46,6 +46,7 @@ function getTime() {
 
 function addMessage(text, sender) {
     const isBot = sender === 'bot';
+    const formattedText = text.replace(/\n/g, '<br>');
     const msg = document.createElement('div');
     msg.className = `msg ${isBot ? 'bot' : 'user'}`;
     msg.innerHTML = `
@@ -53,7 +54,7 @@ function addMessage(text, sender) {
             <i class="fa-solid ${isBot ? 'fa-robot' : 'fa-user'}"></i>
         </div>
         <div>
-            <div class="msg-bubble">${text}</div>
+            <div class="msg-bubble">${formattedText}</div>
             <div class="msg-time">${getTime()}</div>
         </div>
     `;
@@ -155,6 +156,32 @@ chatInput.addEventListener('keydown', (e) => {
     }
 });
 
+// ── Parallax effect on hero ──
+const hero = document.getElementById('hero');
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    if (hero && scrolled < window.innerHeight) {
+        hero.style.backgroundPositionY = `${scrolled * 0.3}px`;
+    }
+});
+
+// ── Animated counters ──
+function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+
+    function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
 // ── Intersection Observer for animations ──
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
@@ -162,11 +189,17 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
+
+            if (entry.target.classList.contains('stat-item')) {
+                const num = entry.target.querySelector('.stat-number');
+                if (num && num.dataset.target) animateCounter(num);
+            }
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-document.querySelectorAll('.service-card, .stat-item, .cta-card').forEach(el => {
+document.querySelectorAll('.service-card, .stat-item, .cta-card, .step-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'all 0.6s ease';

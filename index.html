@@ -10,8 +10,6 @@
 </head>
 <body>
 
-    <div class="bg-hero-gradient"></div>
-
     <!-- ── NAVBAR ── -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
@@ -20,6 +18,7 @@
                 Carri
             </a>
             <ul class="nav-links" id="navLinks">
+                <li><a href="#como-funciona">Cómo funciona</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#chat">Demo</a></li>
                 <li><a href="#contacto" class="nav-cta">WhatsApp</a></li>
@@ -29,7 +28,7 @@
     </nav>
 
     <!-- ── HERO ── -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="dot"></span>
@@ -49,10 +48,15 @@
                 <a href="#chat" class="btn btn-primary">
                     <i class="fa-solid fa-play"></i> Probar el chat
                 </a>
-                <a href="#servicios" class="btn btn-outline">
-                    <i class="fa-solid fa-arrow-down"></i> Ver servicios
+                <a href="#como-funciona" class="btn btn-outline-white">
+                    <i class="fa-solid fa-arrow-down"></i> Ver cómo funciona
                 </a>
             </div>
+        </div>
+        <div class="hero-wave wave-wrap">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="#ffffff"/>
+            </svg>
         </div>
     </section>
 
@@ -60,22 +64,58 @@
     <div class="stats-strip">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-number g1">1+</div>
+                <div class="stat-number g1" data-target="1" data-suffix="+">0</div>
                 <div class="stat-label">Año de experiencia</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number g2">24/7</div>
+                <div class="stat-number g2" data-target="24" data-suffix="/7">0</div>
                 <div class="stat-label">Disponibilidad automatizada</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number g3">100%</div>
+                <div class="stat-number g3" data-target="100" data-suffix="%">0</div>
                 <div class="stat-label">Personalizado a tu negocio</div>
             </div>
         </div>
     </div>
 
+    <!-- ── CÓMO FUNCIONA ── -->
+    <section class="steps-section" id="como-funciona">
+        <div class="section-inner">
+            <span class="section-tag">Proceso</span>
+            <h2 class="section-title">¿Cómo funciona?</h2>
+            <p class="section-desc">En solo 3 pasos, tu negocio turístico tendrá un asistente virtual funcionando 24/7.</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <span class="step-icon">🔌</span>
+                    <h3>Conectamos los canales</h3>
+                    <p>Integramos WhatsApp, Instagram, Messenger y tu web en un solo sistema inteligente que responde por ti.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <span class="step-icon">🧠</span>
+                    <h3>Configuramos la IA</h3>
+                    <p>Entrenamos el asistente con la información de tu negocio: servicios, precios, disponibilidad y FAQ.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <span class="step-icon">🚀</span>
+                    <h3>Automatiza y relájate</h3>
+                    <p>La IA responde, califica leads, agenda citas y te notifica. Tú solo te enfocas en servir a tus clientes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── WAVE DIVIDER ── -->
+    <div class="wave-wrap wave-top-light">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80 Z" fill="#f0f9ff"/>
+        </svg>
+    </div>
+
     <!-- ── SERVICIOS ── -->
-    <section class="section" id="servicios">
+    <section class="section section-alt" id="servicios">
         <div class="section-inner">
             <span class="section-tag">Servicios</span>
             <h2 class="section-title">Automatización multicanal</h2>
@@ -109,6 +149,13 @@
         </div>
     </section>
 
+    <!-- ── WAVE DIVIDER ── -->
+    <div class="wave-wrap wave-top-dark">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,40 C360,0 720,80 1080,40 C1260,20 1380,30 1440,40 L1440,80 L0,80 Z" fill="#0c3a5e"/>
+        </svg>
+    </div>
+
     <!-- ── CHAT DEMO ── -->
     <section class="chat-section" id="chat">
         <div class="chat-container">
@@ -135,13 +182,7 @@
                     </div>
                 </div>
                 <div class="chat-input-area">
-                    <input
-                        type="text"
-                        class="chat-input"
-                        id="chatInput"
-                        placeholder="Escribe tu mensaje aquí..."
-                        autocomplete="off"
-                    >
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu mensaje aquí..." autocomplete="off">
                     <button class="chat-send" id="chatSend" title="Enviar">
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
@@ -149,6 +190,13 @@
             </div>
         </div>
     </section>
+
+    <!-- ── WAVE DIVIDER ── -->
+    <div class="wave-wrap wave-top-light">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,20 C480,80 960,0 1440,40 L1440,80 L0,80 Z" fill="#f8fcff"/>
+        </svg>
+    </div>
 
     <!-- ── CTA ── -->
     <section class="cta-section" id="contacto">
@@ -159,8 +207,8 @@
                 <a href="https://wa.link/6w9eb9" target="_blank" class="btn btn-primary">
                     <i class="fa-brands fa-whatsapp"></i> Escríbeme por WhatsApp
                 </a>
-                <a href="mailto:israelsotocarri@gmail.com" class="btn btn-outline">
-                    <i class="fa-solid fa-envelope"></i> israelsotocarri@gmail.com
+                <a href="mailto:israelsotocarri@gmail.com" class="btn btn-white">
+                    <i class="fa-solid fa-envelope"></i> Contacto por email
                 </a>
             </div>
         </div>
@@ -172,13 +220,18 @@
             <div class="footer-logo"><i class="fa-solid fa-earth-americas"></i> Carri — Automatización para Turismo</div>
             <div class="footer-contact">
                 <a href="https://wa.link/6w9eb9" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                <a href="mailto:israelsotocarri@gmail.com"><i class="fa-solid fa-envelope"></i> israelsotocarri@gmail.com</a>
+                <a href="mailto:israelsotocarri@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
             </div>
             <div class="footer-text">
-                &copy; 2026 Carri. Todos los derechos reservados.
+                © 2026 Carri. Todos los derechos reservados.
             </div>
         </div>
     </footer>
+
+    <!-- ── FLOATING WHATSAPP BUTTON ── -->
+    <a href="https://wa.link/6w9eb9" target="_blank" class="float-wa" title="Escríbenos por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <script src="script.js" defer></script>
 </body>
