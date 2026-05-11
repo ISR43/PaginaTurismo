@@ -1,3 +1,15 @@
+// ── Chat session ID ──
+function getChatId() {
+    let id = sessionStorage.getItem('carri_chat_id');
+    if (!id) {
+        id = 'chat_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 9);
+        sessionStorage.setItem('carri_chat_id', id);
+    }
+    return id;
+}
+const CHAT_ID = getChatId();
+console.log('Carri Chat ID:', CHAT_ID);
+
 // ── Navbar scroll effect ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -18,10 +30,13 @@ navLinks.querySelectorAll('a').forEach(link => {
 const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const chatSend = document.getElementById('chatSend');
-const WEBHOOK_URL = 'https://paneln8n.carri.online/webhook/israel';
+const WEBHOOK_URL = 'http://localhost:5678/webhook-test/7c066f19-aea2-42bf-ac2f-31e34309af93';
 
 function scrollChatToBottom() {
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatMessages.scrollTo({
+        top: chatMessages.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 
 function getTime() {
@@ -75,6 +90,7 @@ async function sendToWebhook(message) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                chatId: CHAT_ID,
                 message: message,
                 timestamp: new Date().toISOString(),
                 source: 'web_chat_carri',
