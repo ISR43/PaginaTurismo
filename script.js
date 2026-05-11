@@ -30,7 +30,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const chatSend = document.getElementById('chatSend');
-const WEBHOOK_URL = 'http://localhost:5678/webhook-test/7c066f19-aea2-42bf-ac2f-31e34309af93';
+const WEBHOOK_URL = 'https://paneln8n.carri.online/webhook/israel';
 
 function scrollChatToBottom() {
     chatMessages.scrollTo({
