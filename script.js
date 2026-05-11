@@ -84,8 +84,12 @@ async function sendToWebhook(message) {
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-        const data = await response.json();
-        return data;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return await response.json();
+        } else {
+            return await response.text();
+        }
     } catch (err) {
         console.error('Webhook error:', err);
         return null;
