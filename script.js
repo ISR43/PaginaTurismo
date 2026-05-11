@@ -46,6 +46,29 @@ function addMessage(text, sender) {
     scrollChatToBottom();
 }
 
+function addTypingIndicator() {
+    const typing = document.createElement('div');
+    typing.className = 'msg bot';
+    typing.id = 'typingMsg';
+    typing.innerHTML = `
+        <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+        <div>
+            <div class="typing-indicator active">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    `;
+    chatMessages.appendChild(typing);
+    scrollChatToBottom();
+}
+
+function removeTypingIndicator() {
+    const typing = document.getElementById('typingMsg');
+    if (typing) typing.remove();
+}
+
 async function sendToWebhook(message) {
     try {
         const response = await fetch(WEBHOOK_URL, {
@@ -69,17 +92,16 @@ async function sendToWebhook(message) {
     }
 }
 
-function showToast(type, title, msg) {
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.innerHTML = `<i class="fa-solid fa-${type === 'success' ? 'circle-check' : 'circle-xmark'}"></i><div><strong>${title}</strong><br><span style="color:var(--text-muted);font-size:0.8rem">${msg}</span></div>`;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(100px)';
-        toast.style.transition = 'all 0.4s ease';
-        setTimeout(() => toast.remove(), 400);
-    }, 3500);
+function extractReply(data) {
+    if (!data) return null;
+    if (data.reply) return data.reply;
+    if (data.output) return data.output;
+    if (data.text) return data.text;
+    if (data.message) return data.message;
+    if (typeof data === 'string') return data;
+    if (Array.isArray(data) && data.length > 0 && data[0].output) return data[0].output;
+    if (Array.isArray(data) && data.length > 0 && data[0].text) return data[0].text;
+    return null;
 }
 
 async function handleSend() {
@@ -90,7 +112,16 @@ async function handleSend() {
     chatInput.value = '';
     chatSend.disabled = true;
 
-    sendToWebhook(text);
+    addTypingIndicator();
+
+    const webhookResponse = await sendToWebhook(text);
+
+    removeTypingIndicator();
+
+    const reply = extractReply(webhookResponse);
+    if (reply) {
+        addMessage(reply, 'bot');
+    }
 
     chatSend.disabled = false;
     chatInput.focus();
